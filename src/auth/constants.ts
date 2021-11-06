@@ -1,3 +1,1 @@
-export const jwtConstants = {
-  secret: 'forcebuy',
-};
+export const jwtConstants = { secret: 'forcebuy' };

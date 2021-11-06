@@ -13,9 +13,9 @@ import { Games } from './entities/games.entity';
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',
-      port: 5433,
+      port: 5432,
       username: 'postgres',
-      password: 'postgres',
+      password: 'root',
       database: 'forcebuy',
       entities: [User, Games],
       synchronize: true,

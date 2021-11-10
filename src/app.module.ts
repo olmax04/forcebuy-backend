@@ -15,7 +15,7 @@ import { Games } from './entities/games.entity';
       host: 'localhost',
       port: 5432,
       username: 'postgres',
-      password: 'root',
+      password: 'postgres',
       database: 'forcebuy',
       entities: [User, Games],
       synchronize: true,

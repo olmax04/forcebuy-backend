@@ -17,12 +17,12 @@ export class AuthService {
     if (!user) {
       throw new UnauthorizedException('User Not Found');
     }
-    const isMatch = bcrypt.compare(pass, user.password);
+    const isMatch = bcrypt.compare(pass, user.encryptedPassword);
     if (!isMatch) {
       throw new UnauthorizedException('Incorrect Password');
     }
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { password, ...result } = user;
+    const { encryptedPassword, ...result } = user;
     return result;
   }
 

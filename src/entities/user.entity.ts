@@ -8,11 +8,13 @@ export class User extends BaseEntity {
 
   @Column()
   fullName: string;
-
   @Column()
   @IsEmail()
   email: string;
 
   @Column()
-  password?: string;
+  encryptedPassword?: string;
+
+  @Column()
+  role: string;
 }

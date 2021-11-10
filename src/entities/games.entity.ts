@@ -1,7 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from 'typeorm';
 
 @Entity('games')
-export class Games {
+export class Games extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -16,4 +16,6 @@ export class Games {
 
   @Column()
   link: string;
+  @Column()
+  ownerId: string;
 }

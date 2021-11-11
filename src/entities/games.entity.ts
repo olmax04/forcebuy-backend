@@ -16,6 +16,7 @@ export class Games extends BaseEntity {
 
   @Column()
   link: string;
+
   @Column()
-  ownerId: string;
+  owner: string;
 }

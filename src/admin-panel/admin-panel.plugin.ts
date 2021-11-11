@@ -1,7 +1,7 @@
 import { INestApplication } from '@nestjs/common';
-import { Database, Resource } from 'admin-bro-typeorm';
+import { Database, Resource } from '@admin-bro/typeorm';
 import AdminBro from 'admin-bro';
-
+import * as bcrypt from 'bcryptjs';
 import * as AdminBroExpress from 'admin-bro-expressjs';
 import UserResource from './resourses/user.resource';
 import { User } from '../entities/user.entity';
@@ -21,9 +21,12 @@ export async function setupAdminPanel(app: INestApplication): Promise<void> {
   const router = AdminBroExpress.buildAuthenticatedRouter(adminBro, {
     authenticate: async (email, password) => {
       const user = await User.findOne({ email });
-      console.log(user);
-      if (user.encryptedPassword === password) {
-        return user;
+      if (user) {
+        const matched = await bcrypt.compare(password, user.encryptedPassword);
+        console.log('matched:', matched);
+        if (matched) {
+          return user;
+        }
       }
       return false;
     },

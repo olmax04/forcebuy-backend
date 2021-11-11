@@ -1,6 +1,6 @@
-import { ResourceWithOptions } from 'admin-bro';
+import AdminBro, { ResourceWithOptions } from 'admin-bro';
 import { User } from '../../entities/user.entity';
-
+import * as bcrypt from 'bcryptjs';
 const UserResource: ResourceWithOptions = {
   resource: User,
   options: {
@@ -15,14 +15,27 @@ const UserResource: ResourceWithOptions = {
           show: false,
         },
       },
+      role: {
+        components: {
+          edit: AdminBro.bundle('../components/dropdown'),
+        },
+      },
     },
     actions: {
+      list: {
+        isAccessible: ({ currentAdmin }) => {
+          return currentAdmin && currentAdmin.role === 'admin';
+        },
+      },
       new: {
         before: async (request) => {
           if (request.payload.password) {
             request.payload = {
               ...request.payload,
-              encryptedPassword: request.payload.password,
+              encryptedPassword: await bcrypt.hash(
+                request.payload.password,
+                10,
+              ),
               password: undefined,
             };
           }

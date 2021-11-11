@@ -16,7 +16,7 @@ export class AppController {
     return this.appService.getHello();
   }
   @Get('/users/:id')
-  getUser(@Param('id') id: string): Object {
+  getUser(@Param('id') id: string): any {
     return this.appService.getUser(+id);
   }
 }
